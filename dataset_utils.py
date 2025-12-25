@@ -59,9 +59,9 @@ class LogoAugmentedDataset(IterableDataset):
         base_dim = min(bg_w, bg_h)
 
         if self.fixed_logo_size:
-            scale = 0.25
+            scale = 0.1
         else:
-            scale = random.uniform(0.15, 0.35)
+            scale = random.uniform(0.05, 0.15)
 
         logo_aspect = logo_img.width / logo_img.height
         target_w = int(base_dim * scale)
