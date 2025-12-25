@@ -8,6 +8,7 @@ import timm
 import wandb
 from sklearn.metrics import precision_recall_fscore_support, accuracy_score
 from dataset_utils import LogoAugmentedDataset
+from tqdm import tqdm
 
 
 def get_args():
@@ -49,7 +50,7 @@ def train_one_epoch(model, loader, optimizer, criterion, device, steps, epoch_id
 
     data_iter = iter(loader)
 
-    for step in range(steps):
+    for step in tqdm(range(steps), desc=f"Epoch {epoch_idx+1} Training"):
         try:
             images, labels = next(data_iter)
         except StopIteration:
@@ -86,7 +87,7 @@ def validate(model, loader, criterion, device, steps):
     data_iter = iter(loader)
 
     with torch.no_grad():
-        for step in range(steps):
+        for step in tqdm(range(steps), desc="Validation"):
             try:
                 images, labels = next(data_iter)
             except StopIteration:
